@@ -1,0 +1,7 @@
+Name: Vihaan
+Difficulty: hard
+Number range: 1 - 500
+Number: 245
+Attempts: 9
+Failed attempts: [250, 125, 187, 220, 235, 242, 246, 244]
+Tries left: 0
