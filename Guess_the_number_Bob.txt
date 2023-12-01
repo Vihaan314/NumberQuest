@@ -1,7 +1,16 @@
 Name: Bob
-Difficulty: medium
-Number range: 1 - 100
-Number: 32
-Attempts: 6
-Failed attempts: [50, 25, 37, 31, 33]
-Tries left: 1
+Difficulty: easy
+Number range: 1 - 10
+Number: 14
+Attempts: 4
+Failed attempts: [10, 15, 12]
+Tries left: 3
+Final Score: 23
+Name: Bob
+Difficulty: hard
+Number range: 1 - 500
+Number: 929
+Attempts: 7
+Failed attempts: [500, 750, 875, 937, 906, 921]
+Tries left: 5
+Final Score: 71

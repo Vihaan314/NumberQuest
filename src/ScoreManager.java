@@ -33,6 +33,7 @@ public class ScoreManager {
             out.println("Attempts: " + attempts);
             out.println("Failed attempts: " + GameTools.arrayListToString(failedAttempts));
             out.println("Tries left: " + tries);
+            out.println("Final Score: " + GameTools.computeFinalScore(tries, attempts, failedAttempts, randomNumber, upperNumMin));
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }

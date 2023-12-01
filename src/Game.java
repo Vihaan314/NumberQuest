@@ -108,7 +108,7 @@ public class Game {
         System.out.println("Hello " + name + ".");
 
         randomNumber = new Random().nextInt(number) + 1;
-        tries = (int) (Math.ceil(Math.log(number) / Math.log(2)));
+        tries = (int) (Math.ceil(Math.log(number) / Math.log(2))) + 2; //Because of binary search, +2 for margin of error -> decreased final score
 
         System.out.println("Generating random number...");
         GameTools.waitFor(500);
@@ -158,6 +158,7 @@ public class Game {
             System.out.println("Attempts: " + attempts);
             System.out.println("Failed attempts: " + GameTools.arrayListToString(failedAttempts));
             System.out.println("Tries left: " + tries);
+            System.out.println("Final Score: " + GameTools.computeFinalScore(tries, attempts, failedAttempts, randomNumber, upperNumMin));
 
         } else {
             //The number of tries the user has is 0 - none left

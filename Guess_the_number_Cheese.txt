@@ -1,7 +1,0 @@
-Name: Cheese
-Difficulty: easy
-Number range: 1 - 10
-Number: 8
-Attempts: 4
-Failed attempts: [10, 5, 7]
-Tries left: 0
