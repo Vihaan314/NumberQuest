@@ -1,0 +1,10 @@
+Name: Jabba
+Difficulty: complex
+Number range minimum: 25
+Number range: 1 - 75
+Complex number: (41 + 60i)
+Magnitude squared: 5281
+Attempts: 2
+Failed attempts: [(52 + 5i), (45 + 55i)]
+Tries left: 6
+Final Score: 60

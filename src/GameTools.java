@@ -17,41 +17,106 @@ public class GameTools {
         }
     }
 
-    public static String arrayListToString(ArrayList<Integer> arrayList) {
+    /**
+     * Converts an ArrayList of integers, or ComplexNumbers to a string
+     * @param arrayList The ArrayList
+     * @return A string including the brackets of the ArrayList
+     */
+    public static String arrayListToString(ArrayList<?> arrayList) {
         StringBuilder arrayString = new StringBuilder();
         arrayString.append("[");
-        for (Integer f : arrayList) {
-            arrayString.append(arrayList.indexOf(f) == arrayList.size()-1 ? f.toString() : f.toString() + ", ");
+        for (Object attempt : arrayList) {
+            if (attempt instanceof Integer) {
+                arrayString.append(arrayList.indexOf(attempt) == arrayList.size() - 1 ? attempt : attempt + ", ");
+            } else if (attempt instanceof ComplexNumber) {
+                arrayString.append(arrayList.indexOf(attempt) == arrayList.size() - 1 ? attempt.toString() : attempt.toString() + ", ");
+            }
         }
         arrayString.append("]");
         return arrayString.toString();
     }
+
+    /**
+     * Custom standard deviation method that returns an a deviation of user guesses and a target number
+     * @param values The arraylist of user integer attempts
+     * @param number The target (random number)
+     * @return A double, containing the custom standard deviation function sqrt((Sum((abs(number-values_i))**2)/ values_length)
+     */
     public static double standardDeviationNum(ArrayList<Integer> values, int number) {
         int totalDif = 0;
-        for (int i = 0; i < values.size(); i++ ){
-            totalDif += Math.pow(Math.abs(number-values.get(i)), 2);
+        for (Integer attempt : values) {
+            totalDif += Math.pow(Math.abs(number - attempt), 2);
         }
         return Math.sqrt((double) totalDif /(values.size()));
     }
 
-    public static int computeFinalScore(int tries, int attempts, ArrayList<Integer> failedAttempts, int randNum, int upperBound) {
-        //std deviation of failed, tries, attempts, rand num, range
-        double std = standardDeviationNum(failedAttempts, randNum);
+    /**
+     * Custom standard deviation method that returns an a deviation of a complex number and the
+     * @param values The arraylist of user integer attempts
+     * @param complexNumber The target (random complex number)
+     * @return A double, containing the custom standard deviation function sqrt((Sum((abs(|complex-values|_i))**2)/ values_length)
+     */
+    public static double standardDeviationComplex(ArrayList<ComplexNumber> values, ComplexNumber complexNumber) {
+        int totalDif = 0;
+        for (ComplexNumber attempt : values) {
+            totalDif += Math.pow(Math.abs(complexNumber.magnitude - attempt.magnitude), 2);
+        }
+        return Math.pow((double) totalDif /(values.size()), (double) (1 / 3));
+    }
 
-        double weightForStd = 0.1;
-        double weightForTries = 10.0;
+    public static double getSTDWeight(double std) {
+        return 1/(Math.log10(std)+1) + 1/(2*Math.log10(std))-0.5*Math.log10(std/17);
+    }
+
+    /**
+     * To compute the overall final score of the user through a weighted formula
+     * @param tries The amount of attempts the user had left after guessing the correct number
+     * @param attempts The amount of attempts it took the user to guess the correct number
+     * @param failedAttempts The ArrayList of failed attempts by the user
+     * @param randomNumber The random number that was chosen
+     * @param upperBound The minumum number for the upper bound of the number generation
+     */
+    public static int computeFinalScore(int tries, int attempts, ArrayList<Integer> failedAttempts, int randomNumber, int upperBound) {
+        //std deviation of failed, tries, attempts, rand num, range
+        double std = standardDeviationNum(failedAttempts, randomNumber);
+        double weightForStd = getSTDWeight(std);
+        double weightForTries = 10- (double) 25 / upperBound;
         double weightForAttempts = 20.0;
-        double weightForUpperBound = 5;
+        double weightForUpperBound = 2;
 
         double stdScore = std * weightForStd;
         double triesScore = tries * weightForTries;
         double attemptsScore = (1.0 / attempts) * weightForAttempts;
         double upperBoundScore = Math.log(upperBound) * weightForUpperBound;
-
-        System.out.println(Arrays.toString(new double[]{stdScore, triesScore, attemptsScore, upperBoundScore}));
-
+        System.out.println("Score weights ([std score, tries score, attempts score, upper bound score]): " + Arrays.toString(new double[]{stdScore, triesScore, attemptsScore, upperBoundScore}));
         double finalScore = triesScore + upperBoundScore - stdScore - attemptsScore;
 
-        return Math.max(0, (int) Math.round(finalScore));
+        return Math.max(1, (int) Math.round(finalScore));
+    }
+
+    /**
+     * To compute the overall final score of the user through a weighted formula
+     * @param tries The amount of attempts the user had left after guessing the correct number
+     * @param attempts The amount of attempts it took the user to guess the correct number
+     * @param failedAttempts The ArrayList of failed attempts by the user
+     * @param complexNumber The random complex number that was chosen
+     * @param upperBound The minumum number for the upper bound of the number generation
+     */
+    public static int computeFinalScoreComplex(int tries, int attempts, ArrayList<ComplexNumber> failedAttempts, ComplexNumber complexNumber, int upperBound) {
+        double std = standardDeviationComplex(failedAttempts, complexNumber);
+
+        double weightForStd = Math.log10(upperBound)/10;
+        double weightForTries = 10.0;
+        double weightForAttempts = 20.0;
+        double weightForUpperBound = 3;
+
+        double stdScore = (std == 0) ? 0 : std * weightForStd;
+        double triesScore = tries * weightForTries;
+        double attemptsScore = (attempts == 0) ? 0 : (1.0 / attempts) * weightForAttempts;
+        double upperBoundScore = Math.log(upperBound) * weightForUpperBound;
+        System.out.println("Score weights ([std score, tries score, attempts score, upper bound score]): " + Arrays.toString(new double[]{stdScore, triesScore, attemptsScore, upperBoundScore}));
+        double finalScore = triesScore + upperBoundScore - stdScore - attemptsScore;
+
+        return Math.max(1, (int) Math.round(finalScore));
     }
 }

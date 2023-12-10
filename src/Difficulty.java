@@ -12,6 +12,7 @@ public class Difficulty {
         difficultyMap.put("medium", 100);
         difficultyMap.put("hard", 500);
         difficultyMap.put("default", 50);
+        difficultyMap.put("complex", 25);
         this.difficulty = difficulty;
     }
 

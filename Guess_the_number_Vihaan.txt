@@ -1,8 +1,9 @@
 Name: Vihaan
 Difficulty: hard
+Number range minimum: 500
 Number range: 1 - 500
-Number: 979
-Attempts: 6
-Failed attempts: [500, 750, 875, 937, 959]
-Tries left: 6
-Final Score: 26
+Number: 232
+Attempts: 9
+Failed attempts: [250, 125, 187, 219, 235, 227, 231, 233]
+Tries left: 2
+Final Score: 9

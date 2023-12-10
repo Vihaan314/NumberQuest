@@ -10,10 +10,11 @@ public class ScoreManager {
      * @param difficulty The difficulty that the user chose (Easy, Medium, Hard, Default)
      * @param upperNumMin The minumum number for the upper bound of the number generation
      * @param randomNumber The random number that was chosen
+     * @param failedAttempts The ArrayList of failed attempts before guessing the correct number
      * @param attempts The amount of attempts it took the user to guess the correct number
      * @param tries The amount of attempts the user had left after guessing the correct number
      */
-    public void saveScore(String name, String difficulty, int upperNumMin, int randomNumber, int attempts, ArrayList<Integer> failedAttempts, int tries) {
+    public void saveScore(String name, String difficulty, int numberUpper, int upperNumMin, int randomNumber, int attempts, ArrayList<Integer> failedAttempts, int tries) {
         //Create the filename by using their inputted name
         String filename = "Guess_the_number_" + name + ".txt";
         //This uses a combination of the FileWriter, BufferedWriter, and PrinterWriter classes
@@ -28,12 +29,43 @@ public class ScoreManager {
              PrintWriter out = new PrintWriter(bw)) {
             out.println("Name: " + name);
             out.println("Difficulty: " + difficulty);
-            out.println("Number range: 1 - " + upperNumMin);
+            out.println("Number range minimum: " + upperNumMin);
+            out.println("Number range: 1 - " + numberUpper);
             out.println("Number: " + randomNumber);
             out.println("Attempts: " + attempts);
             out.println("Failed attempts: " + GameTools.arrayListToString(failedAttempts));
             out.println("Tries left: " + tries);
             out.println("Final Score: " + GameTools.computeFinalScore(tries, attempts, failedAttempts, randomNumber, upperNumMin));
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * To save all the data of the game to a text file, identified by the user's name
+     * @param name The user's name entered
+     * @param difficulty The difficulty that the user chose (Easy, Medium, Hard, Default)
+     * @param upperNumMin The minumum number for the upper bound of the number generation
+     * @param randomComplex The random complex number that was chosen
+     * @param failedAttempts The ArrayList of failed complex number attempts before guessing the correct number
+     * @param attempts The amount of attempts it took the user to guess the correct number
+     * @param tries The amount of attempts the user had left after guessing the correct number
+     */
+    public void saveScoreComplex(String name, String difficulty, int numberUpper, int upperNumMin, ComplexNumber randomComplex, int attempts, ArrayList<ComplexNumber> failedAttempts, int tries) {
+        String filename = "Guess_the_number_" + name + ".txt";
+        try (FileWriter fw = new FileWriter(filename, true);
+             BufferedWriter bw = new BufferedWriter(fw);
+             PrintWriter out = new PrintWriter(bw)) {
+            out.println("Name: " + name);
+            out.println("Difficulty: " + difficulty);
+            out.println("Number range minimum: " + upperNumMin);
+            out.println("Number range: 1 - " + numberUpper);
+            out.println("Complex number: " + randomComplex);
+            out.println("Magnitude squared: " + Math.round(randomComplex.getMagnitudeSquared()));
+            out.println("Attempts: " + attempts);
+            out.println("Failed attempts: " + GameTools.arrayListToString(failedAttempts));
+            out.println("Tries left: " + tries);
+            out.println("Final Score: " + GameTools.computeFinalScoreComplex(tries, attempts, failedAttempts, randomComplex, upperNumMin));
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
