@@ -2,8 +2,19 @@ Name: Bob
 Difficulty: medium
 Number range minimum: 100
 Number range: 1 - 100
-Number: 87
-Attempts: 3
-Failed attempts: [50, 75]
-Tries left: 6
-Final Score: 43
+Number: 82
+Probability of correct guess: 50.0%
+Attempts: 6
+Failed attempts: [50, 75, 87, 81, 84]
+Tries left: 3
+Final Score: 23
+Name: Bob
+Difficulty: medium
+Number range minimum: 100
+Number range: 1 - 100
+Number: 54
+Probability of correct guess: 50.0%
+Attempts: 6
+Failed attempts: [50, 75, 62, 56, 53]
+Tries left: 3
+Final Score: 25

@@ -14,7 +14,7 @@ public class ScoreManager {
      * @param attempts The amount of attempts it took the user to guess the correct number
      * @param tries The amount of attempts the user had left after guessing the correct number
      */
-    public void saveScore(String name, String difficulty, int numberUpper, int upperNumMin, int randomNumber, int attempts, ArrayList<Integer> failedAttempts, int tries) {
+    public void saveScore(String name, String difficulty, int numberUpper, int upperNumMin, int randomNumber, int attempts, ArrayList<Integer> failedAttempts, int tries, double chance) {
         //Create the filename by using their inputted name
         String filename = "Guess_the_number_" + name + ".txt";
         //This uses a combination of the FileWriter, BufferedWriter, and PrinterWriter classes
@@ -32,6 +32,7 @@ public class ScoreManager {
             out.println("Number range minimum: " + upperNumMin);
             out.println("Number range: 1 - " + numberUpper);
             out.println("Number: " + randomNumber);
+            out.println("Probability of correct guess: " + GameTools.roundDecimal(chance*100.0, 2) + "%");
             out.println("Attempts: " + attempts);
             out.println("Failed attempts: " + GameTools.arrayListToString(failedAttempts));
             out.println("Tries left: " + tries);

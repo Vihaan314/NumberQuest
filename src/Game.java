@@ -118,7 +118,7 @@ public class Game {
         }
     }
 
-    public void printResults(int numberUpper) {
+    public void printResults(int numberUpper, double chance) {
         //Print out the game statistics
         System.out.println();
         System.out.println("Name: " + name);
@@ -134,7 +134,9 @@ public class Game {
             System.out.println("Final Score: " + GameTools.computeFinalScoreComplex(tries, attempts, failedAttemptsComplex, complexNumber, upperNumMin));
         }
         else {
-            System.out.println("Number: " + numberUpper);
+            System.out.println("Random Number: " + randomNumber);
+            //Inform the user of the probability that they guessed the correct number (that is, if they most optimally used the information of their guesses)
+            System.out.println("There was a " + GameTools.roundDecimal(chance*100.0, 2) + "% chance of guessing the correct number!");
             System.out.println("Attempts: " + attempts);
             System.out.println("Failed attempts: " + GameTools.arrayListToString(failedAttempts));
             System.out.println("Tries left: " + tries);
@@ -191,17 +193,13 @@ public class Game {
                 tries--;
                 System.out.println("Congrats, you guessed correctly!");
 
-//                double chance = Math.abs(failedAttempts.get(failedAttempts.size() - 1) - failedAttempts.get(failedAttempts.size() - 2));
-//                System.out.println(chance);
-//                System.out.println("There was a " + Math.floorDiv(100, (int) chance) + "% chance of guessing the correct number!");
-
                 //For the multiplayer mode, not implemented yet
                 scores.add(tries);
 
+                double chance = GameTools.getChance(failedAttempts, numberUpper, randomNumber);
                 //Currently saves the score for the user that played the single player game
-                scoreManager.saveScore(name, difficulty, numberUpper, upperNumMin, randomNumber, attempts, failedAttempts, tries);
-
-                printResults(numberUpper);
+                scoreManager.saveScore(name, difficulty, numberUpper, upperNumMin, randomNumber, attempts, failedAttempts, tries, chance);
+                printResults(numberUpper, chance);
             } else {
                 //The number of tries the user has is 0 - none left
                 System.out.println("Sorry, you ran out of tries! The correct number was " + randomNumber);
@@ -237,7 +235,7 @@ public class Game {
             if (complexNumber.checkEqualComplex(userGuessComplex)) {
                 System.out.println("Correct! The complex number was indeed " + complexNumber.toString());
                 scoreManager.saveScoreComplex(name, difficulty, number, upperNumMin, complexNumber, attempts, failedAttemptsComplex, tries);
-                printResults(number);
+                printResults(number, 0);
                 break;
             } else {
                 failedAttemptsComplex.add(userGuessComplex);

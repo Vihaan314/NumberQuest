@@ -1,0 +1,10 @@
+Name: Abaca
+Difficulty: complex
+Number range minimum: 25
+Number range: 1 - 30
+Complex number: (17 + 18i)
+Magnitude squared: 613
+Attempts: 1
+Failed attempts: [(15 + 20i)]
+Tries left: 5
+Final Score: 40

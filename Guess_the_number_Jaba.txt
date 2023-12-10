@@ -1,0 +1,10 @@
+Name: Jaba
+Difficulty: complex
+Number range minimum: 25
+Number range: 1 - 75
+Complex number: (9 + 44i)
+Magnitude squared: 2017
+Attempts: 2
+Failed attempts: [(22 + 40i), (12 + 45i)]
+Tries left: 5
+Final Score: 50

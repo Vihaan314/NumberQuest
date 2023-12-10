@@ -2,8 +2,19 @@ Name: Vihaan
 Difficulty: hard
 Number range minimum: 500
 Number range: 1 - 500
-Number: 232
+Number: 403
+Probability of correct guess: 100.0%
 Attempts: 9
-Failed attempts: [250, 125, 187, 219, 235, 227, 231, 233]
+Failed attempts: [250, 375, 437, 406, 390, 398, 402, 404]
 Tries left: 2
-Final Score: 9
+Final Score: 8
+Name: Vihaan
+Difficulty: hard
+Number range minimum: 500
+Number range: 1 - 1000
+Number: 451
+Probability of correct guess: 50.0%
+Attempts: 9
+Failed attempts: [500, 250, 375, 437, 459, 448, 453, 450]
+Tries left: 3
+Final Score: 20

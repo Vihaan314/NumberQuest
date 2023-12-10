@@ -2,8 +2,9 @@ Name: Cheese
 Difficulty: easy
 Number range minimum: 10
 Number range: 1 - 10
-Number: 8
-Attempts: 2
-Failed attempts: [5]
-Tries left: 4
-Final Score: 18
+Number: 7
+Probability of correct guess: 50.0%
+Attempts: 3
+Failed attempts: [5, 8]
+Tries left: 3
+Final Score: 16
